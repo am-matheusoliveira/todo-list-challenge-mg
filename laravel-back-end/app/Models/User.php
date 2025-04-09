@@ -45,4 +45,13 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /*
+        RELACIONAMENTO COM A TABELA TASK.
+        UM USUÁRIO PODE TER TEM VÁRIAS TAREFAS.
+    */
+    public function tasks()
+    {
+        return $this->hasMany(Task::class, 'user_id', 'id');
+    }    
 }

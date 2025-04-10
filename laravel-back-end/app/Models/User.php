@@ -67,6 +67,18 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
+    /**
+     * Set the password attribute and hash it.
+     * 
+     * @param string $password
+     * 
+     * @return string
+     */
+    public function setPasswordAttribute($password)
+    {
+        return $this->attributes['password'] = bcrypt($password);
+    }
+
     /*
         RELACIONAMENTO COM A TABELA TASK.
         UM USUÁRIO PODE TER TEM VÁRIAS TAREFAS.

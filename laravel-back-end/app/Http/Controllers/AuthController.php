@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 
 class AuthController extends Controller
@@ -14,8 +14,8 @@ class AuthController extends Controller
      * @return void
      */
     public function __construct()
-    {
-        $this->middleware('auth:api', ['except' => ['login']]);
+    {        
+        $this->middleware('auth:api', ['except' => ['login', 'signup']]);
     }
 
     /**
@@ -28,10 +28,31 @@ class AuthController extends Controller
         $credentials = request(['email', 'password']);
 
         if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['error' => 'Falha! E-mail ou senha não correspondem.'], 401);
         }
 
         return $this->respondWithToken($token);
+    }
+
+    /**
+     * _Get a JWT via given credentials.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function signup(Request $request)
+    {        
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|confirmed',
+            'password_confirmation' => 'required|same:password',
+        ]);
+        
+        $userData = User::create($request->except('password_confirmation'));        
+        return response()->json([
+            'message' => 'Usuário cadastrado com sucesso!',
+            'userData' => $userData,
+        ], 201);
     }
 
     /**

@@ -1,1 +1,39 @@
-<p>signup works!</p>
+<div class="col-8">
+    <div class="card">
+        <div class="card-header card-text"> Registre-se para continuar </div>
+        <div class="card-body">
+            <form #registrationForm="ngForm" (ngSubmit)="submitSignup()">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Nome</label>
+                    <input type="text" class="form-control shadow-none" id="name" name="name" [(ngModel)]="form.name" required>
+                </div>
+
+                <div class="alert alert-danger" [hidden]="!error.name"> {{error.name}} </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control shadow-none" id="email" name="email" [(ngModel)]="form.email" required>
+                </div>
+
+                <div class="alert alert-danger" [hidden]="!error.email"> {{error.email}} </div>
+                
+                <div class="mb-3">
+                    <label for="password" class="form-label">Senha</label>
+                    <input type="password" class="form-control shadow-none" id="password" name="password" [(ngModel)]="form.password" required>
+                </div>
+                
+                <div class="alert alert-danger" [hidden]="!error.password"> {{error.password}} </div>
+
+                <div class="mb-3">
+                    <label for="password_confirmation" class="form-label">Confirma Senha</label>
+                    <input type="password" class="form-control shadow-none" id="password_confirmation" name="password_confirmation" [(ngModel)]="form.password_confirmation" required>
+                </div>
+
+                <div class="alert alert-danger" [hidden]="!error.password_confirmation"> {{error.password_confirmation}} </div>
+                
+                <button type="submit" class="btn btn-primary" [disabled]="!registrationForm.valid">Registre-se</button>
+            </form>
+        </div>
+    </div>
+</div>
+  

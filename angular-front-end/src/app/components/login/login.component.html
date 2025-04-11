@@ -1,22 +1,23 @@
-<div class="col-8">
-    <div class="card">
-        <div class="card-header card-text"> Entre para continuar </div>
-        <div class="card-body">
-            <form #loginForm="ngForm" (ngSubmit)="submitLogin()">
+<div class="container d-flex justify-content-center mt-5">
+    <div class="col-8">
+        <div class="card">
+            <div class="card-header card-text"> Entre para continuar </div>
+            <div class="card-body">
+                <form #loginForm="ngForm" (ngSubmit)="submitLogin()">
+                    
+                    <div class="alert alert-danger" [hidden]="!error"> {{error}} </div>
                 
-                <div class="alert alert-danger" [hidden]="!error"> {{error}} </div>
-
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control shadow-none" id="email" name="email" [(ngModel)]="form.email" required>
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">Senha</label>
-                    <input type="password" class="form-control shadow-none" id="password" name="password" [(ngModel)]="form.password" required>
-                </div>
-                <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">Entrar</button>
-            </form>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control shadow-none" id="email" name="email" [(ngModel)]="form.email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Senha</label>
+                        <input type="password" class="form-control shadow-none" id="password" name="password" [(ngModel)]="form.password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">Entrar</button>
+                </form>
+            </div>
         </div>
     </div>
 </div>
-  

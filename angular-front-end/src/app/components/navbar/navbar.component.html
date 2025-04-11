@@ -1,12 +1,17 @@
 <nav class="navbar navbar-light bg-light border-bottom shadow-sm">
   <div class="container-fluid justify-content-between">
-    <a class="navbar-brand fw-bold custom-link" href="#!">Home</a>
+
+    <a class="navbar-brand fw-bold custom-link" [routerLink]="getHomeLink()">{{ loggedIn ? 'Home' : 'Início' }}</a>    
+
     <div class="d-flex align-items-center gap-3">
-      <a class="nav-link custom-link" routerLink="login">Fazer Login</a>
-      <div class="divider"></div>
-      <a class="nav-link custom-link" routerLink="signup">Criar uma conta</a>
-      <div class="divider"></div>
-      <a class="nav-link custom-link semi-bold" routerLink="profile">Meu Perfil</a>
+
+      <a class="nav-link custom-link" routerLink="login" *ngIf="!loggedIn">Fazer Login</a>
+      <div class="divider" *ngIf="!loggedIn"></div>
+      <a class="nav-link custom-link" routerLink="signup" *ngIf="!loggedIn">Criar uma conta</a>
+      
+      <a class="nav-link custom-link" href="#!" (click)="logout($event)" *ngIf="loggedIn">Fazer Logout</a>      
+      <div class="divider" *ngIf="loggedIn"></div>
+      <a class="nav-link custom-link semi-bold" routerLink="profile" *ngIf="loggedIn">Meu Perfil</a>
     </div>
   </div>
 </nav>

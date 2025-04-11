@@ -7,6 +7,7 @@ import { AfterLoginService } from './services/after-login.service';
 import { BeforeLoginService } from './services/before-login.service';
 import { LandingComponent } from './components/landing/landing.component';
 import { HomeComponent } from './components/home/home.component';
+import { TodoListComponent } from './components/todo-list/todo-list.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,11 @@ const routes: Routes = [
     component: ProfileComponent,
     canActivate: [AfterLoginService]
   },
+  {
+    path: 'todo-list',
+    component: TodoListComponent,
+    canActivate: [AfterLoginService]
+  },  
   {
     path: '**',
     component: LandingComponent,

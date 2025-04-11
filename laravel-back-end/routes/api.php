@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TaskController;
 
 // Endpoints públicos usados pelo frontend para registrar, autenticar e revogar o token do usuário
 Route::post('login', [AuthController::class, 'login'])->name('login');
@@ -16,11 +17,6 @@ Route::group(['middleware' => 'auth:api'], function () {
     // Endpoints relacionados ao usuário autenticado    
     Route::get('me', [AuthController::class, 'me'])->name('me');
     
-    // TODO LIST - ENDPOINTS
-    // Route::get('todo', [AuthController::class, 'index']);
-    // Route::post('todo', [AuthController::class, 'store']);
-    // Route::get('todo/{id}', [AuthController::class, 'show']);
-    // Route::put('todo/{id}', [AuthController::class, 'update']);
-    // Route::delete('todo/{id}', [AuthController::class, 'destroy']);
-    // TODO LIST - ENDPOINTS
+    // Endpoints relacionados às tarefas
+    Route::apiResource('tasks', TaskController::class);
 });

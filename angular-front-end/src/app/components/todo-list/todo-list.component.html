@@ -1,0 +1,122 @@
+<div class="container d-flex justify-content-center mt-5">
+  <div class="col-8">
+    <div class="card">
+      <div class="card-header card-text"> Lista de Tarefas </div>
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="d-flex align-items-center gap-3">
+              <span>{{ completed }}/{{ total }} concluídas</span>
+              <select class="form-select form-select-sm shadow-none" style="width: auto;" [(ngModel)]="selectedFilter" (change)="filterTasks()">
+                <option value="all">Todas</option>
+                <option value="pending">Pendentes</option>
+                <option value="in-progress">Em Progresso</option>
+                <option value="completed">Concluídas</option>
+              </select>
+            </div>
+            <button class="btn btn-primary btn-sm shadow-none" (click)="openNewTaskModal()">Adicionar Nova Tarefa</button>
+          </div>
+          <!-- 🔍 Campo de busca -->
+          <div class="mb-3">
+            <input type="text" class="form-control form-control-sm shadow-none" placeholder="Buscar tarefa..." [(ngModel)]="searchTerm" (input)="filterTasks()" />
+          </div>
+          
+          <div class="list-group">
+            <div class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let task of filteredTasks">
+              <span class="text-truncate d-inline-block" style="white-space: nowrap; overflow: hidden; vertical-align: middle;"> {{ task.description }} </span>                  
+              <div class="d-flex align-items-center gap-2">                  
+              <!-- Badge de status com estilos dinâmicos -->
+              <span class="badge px-3 py-1 fw-bold" [ngStyle]="{ 'background-color': task.status === 'COMPLETED' ? '#ccff66' : task.status === 'IN_PROGRESS' ? '#ffe066' : '#d4a373', 'color': task.status === 'PENDING' ? '#fff' : '#000' }">
+                {{ task.status === 'COMPLETED' ? 'CONCLUÍDA' : task.status === 'IN_PROGRESS' ? 'EM PROGRESSO' : 'PENDENTE' }}
+              </span>                  
+                <button class="btn btn-sm btn-secondary me-2 shadow-none" (click)="openEditModal(task)">Editar</button>
+                <button class="btn btn-sm btn-danger shadow-none" (click)="openDeleteModal(task)">Excluir</button>
+              </div>
+            </div>
+          </div>
+                                      
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- Modal Nova Tarefa -->
+<div class="modal fade" id="newTaskModal" tabindex="-1" aria-labelledby="newTaskModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="newTaskModalLabel">Nova Tarefa</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="newDescription" class="form-label">Descrição</label>
+            <input type="text" class="form-control shadow-none" id="newDescription" [(ngModel)]="newTask.description" name="description" maxlength="255" />
+          </div>
+          <div class="mb-3">
+            <label for="newStatus" class="form-label">Status</label>
+            <select class="form-select shadow-none" id="newStatus" [(ngModel)]="newTask.status" name="status">
+              <option value="PENDING">Pendente</option>
+              <option value="IN_PROGRESS">Em Progresso</option>
+              <option value="COMPLETED">Concluída</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary shadow-none" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-success shadow-none" (click)="addTask()">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Editar -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalLabel">Editar Tarefa</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="taskDescription" class="form-label">Descrição</label>
+            <input type="text" class="form-control shadow-none" id="taskDescription" [(ngModel)]="selectedTask.description" name="description" maxlength="255" />
+          </div>
+          <div class="mb-3">
+            <label for="taskStatus" class="form-label">Status</label>
+            <select class="form-select shadow-none" id="taskStatus" [(ngModel)]="selectedTask.status" name="status">
+              <option value="PENDING">Pendente</option>
+              <option value="IN_PROGRESS">Em Progresso</option>
+              <option value="COMPLETED">Concluída</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary shadow-none" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary shadow-none" (click)="saveChanges()">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Excluir -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Confirmar Exclusão</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Você tem certeza que deseja excluir esta tarefa?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary shadow-none" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger shadow-none" (click)="confirmDelete()">Excluir</button>
+      </div>
+    </div>
+  </div>
+</div>

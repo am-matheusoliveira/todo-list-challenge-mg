@@ -10,6 +10,8 @@ import { SignupComponent } from './components/signup/signup.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { HomeComponent } from './components/home/home.component';
 import { LandingComponent } from './components/landing/landing.component';
+import { TodoListComponent } from './components/todo-list/todo-list.component';
+
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { FormsModule } from '@angular/forms';
@@ -23,7 +25,8 @@ import { HttpClientModule } from '@angular/common/http';
     SignupComponent,
     ProfileComponent,
     HomeComponent,
-    LandingComponent
+    LandingComponent,
+    TodoListComponent
   ],
   imports: [
     BrowserModule,

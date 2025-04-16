@@ -64,7 +64,9 @@ class User extends Authenticatable implements JWTSubject
      */
     public function getJWTCustomClaims()
     {
-        return [];
+        return [
+            'iss' => config('app.url') . '/api',
+        ];
     }
 
     /**

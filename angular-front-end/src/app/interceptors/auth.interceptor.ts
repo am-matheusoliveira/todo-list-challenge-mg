@@ -67,10 +67,12 @@ export class AuthInterceptor implements HttpInterceptor {
       );
     }
   }
-
+  
   private addTokenHeader(req: HttpRequest<any>, token: string): HttpRequest<any> {
     return req.clone({
-      headers: req.headers.set('Authorization', `Bearer ${token}`)
+      headers: req.headers
+        .set('Authorization', `Bearer ${token}`)
+        .set('ngrok-skip-browser-warning', 'true')
     });
   }
 }

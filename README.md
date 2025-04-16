@@ -96,7 +96,15 @@ Este projeto está hospedado no serviço nGrok da nGrok. Você pode acessá-lo e
     ```
     npm install
     ```
-3. ***Execute a aplicação***
+
+3. ***Configure as variáveis de ambiente***
+    ```
+    // src/environments/environment.ts        
+    URL_BASE: SUA_URL_BASE,
+    URL_BACKEND: SUA_URL_BACKEND
+    ```
+
+4. ***Execute a aplicação***
     ```
     ng serve
     ```

@@ -1,50 +1,49 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { TokenService } from './token.service';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class BackendService {
-  private apiUrl = 'http://localhost:8000/api';
-
-  constructor(private http: HttpClient, private tokenService: TokenService) {}
+export class BackendService {    
+  
+  constructor(private http: HttpClient) {}
 
   // Autenticação
-  login(data: any) {
-    return this.http.post(`${this.apiUrl}/login`, data);
+  login(data: any) {    
+    return this.http.post(`${environment.URL_BACKEND}/login`, data);
   }
 
   signup(data: any) {
-    return this.http.post(`${this.apiUrl}/signup`, data);
+    return this.http.post(`${environment.URL_BACKEND}/signup`, data);
   }
 
   logout() {
-    return this.http.post(`${this.apiUrl}/logout`, {});
+    return this.http.post(`${environment.URL_BACKEND}/logout`, {});
   }
 
   refreshToken() {
-    return this.http.post<any>(`${this.apiUrl}/refresh`, {});
+    return this.http.post<any>(`${environment.URL_BACKEND}/refresh`, {});
   }
 
   meUser() {
-    return this.http.get<any>(`${this.apiUrl}/me`);
+    return this.http.get<any>(`${environment.URL_BACKEND}/me`);
   }
 
   // TAREFAS - CRUD
   getTasks() {
-    return this.http.get<any>(`${this.apiUrl}/tasks`);
+    return this.http.get<any>(`${environment.URL_BACKEND}/tasks`);
   }
 
   createTask(data: any) {
-    return this.http.post(`${this.apiUrl}/tasks`, data);
+    return this.http.post(`${environment.URL_BACKEND}/tasks`, data);
   }
 
   updateTask(id: number, data: any) {
-    return this.http.put(`${this.apiUrl}/tasks/${id}`, data);
+    return this.http.put(`${environment.URL_BACKEND}/tasks/${id}`, data);
   }
 
   deleteTask(id: number) {
-    return this.http.delete(`${this.apiUrl}/tasks/${id}`);
+    return this.http.delete(`${environment.URL_BACKEND}/tasks/${id}`);
   }
 }

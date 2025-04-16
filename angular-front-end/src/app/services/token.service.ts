@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpHeaders } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -28,23 +28,14 @@ export class TokenService {
 
   isValid() {
     const token = this.get();
-    if (token) {
-      const payload = this.payload(token);
-      if(payload){
-        const issuers = [
-          "http://localhost:8000/api/login",
-          "http://localhost:8000/api/signup",
-          "http://localhost:8000/api/refresh",
-          "http://127.0.0.1:8000/api/login",
-          "http://127.0.0.1:8000/api/signup",
-          "http://127.0.0.1:8000/api/refresh"
-        ];
-        
-        return issuers.includes(payload.iss);
-      }
-    }
-    return false;
+    if (!token) return false;
+  
+    const payload = this.payload(token);
+    if (!payload || !payload.iss) return false;
+  
+    return payload.iss === environment.URL_BACKEND;
   }
+  
   
   payload(token: any) {
     const payload = token.split('.')[1];

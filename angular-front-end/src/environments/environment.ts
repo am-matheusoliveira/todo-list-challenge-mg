@@ -1,6 +1,6 @@
 // src/environments/environment.ts
 export const environment = {
     production: false,
-    URL_BASE: 'https://pangolin-closing-multiply.ngrok-free.app',
-    URL_BACKEND: 'https://magical-helped-hagfish.ngrok-free.app/api'
+    URL_BASE: 'http://localhost:4200',
+    URL_BACKEND: 'http://localhost:8000/api'
   };
